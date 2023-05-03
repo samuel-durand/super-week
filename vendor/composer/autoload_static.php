@@ -4,8 +4,22 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit096709f9776f2aae6b7683c30745f866
+class ComposerStaticInit46cf37a4604055fd55656ec204808ef8
 {
+    public static $prefixLengthsPsr4 = array (
+        'F' => 
+        array (
+            'Faker\\' => 6,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'Faker\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/fakerphp/faker/src/Faker',
+        ),
+    );
+
     public static $classMap = array (
         'AltoRouter' => __DIR__ . '/..' . '/altorouter/altorouter/AltoRouter.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
@@ -14,7 +28,9 @@ class ComposerStaticInit096709f9776f2aae6b7683c30745f866
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->classMap = ComposerStaticInit096709f9776f2aae6b7683c30745f866::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit46cf37a4604055fd55656ec204808ef8::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit46cf37a4604055fd55656ec204808ef8::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit46cf37a4604055fd55656ec204808ef8::$classMap;
 
         }, null, ClassLoader::class);
     }
