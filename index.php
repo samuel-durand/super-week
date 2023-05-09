@@ -1,6 +1,10 @@
 <?php  
 require_once 'vendor/autoload.php';
 
+use App\Controller\UserController;
+use App\Core\Database;
+
+
 
 $router = new AltoRouter();
 
@@ -21,30 +25,36 @@ $router->map('GET', '/users', function() {
             'id' => 1,
             'email' => 'john.doe@example.com',
             'first_name' => 'John',
-            'last_name' => 'Doe'
+            'last_name' => 'Doe',
+            'password' =>'test'
         ],
         [
             'id' => 2,
             'email' => 'jane.doe@example.com',
             'first_name' => 'Jane',
-            'last_name' => 'Doe'
+            'last_name' => 'Doe',
+            'password' =>'test'
+
         ],
         [
             'id' => 3,
             'email' => 'bob.smith@example.com',
             'first_name' => 'Bob',
-            'last_name' => 'Smith'
+            'last_name' => 'Smith',
+            'password' =>'test',
+
         ]
     ];
 
     // Insertion des utilisateurs dans la base de données
     foreach ($users as $user) {
-        $stmt = $pdo->prepare("INSERT INTO `user`(`id`, `email`, `first_name`, `last_name`) VALUES (:id, :email, :first_name, :last_name)");
+        $stmt = $pdo->prepare("INSERT INTO `user`(`id`, `email`, `first_name`, `last_name`,`password`) VALUES (:id, :email, :first_name, :last_name, :password)");
         $stmt->execute([
             'id' => $user['id'],
             'email' => $user['email'],
             'first_name' => $user['first_name'],
-            'last_name' => $user['last_name']
+            'last_name' => $user['last_name'],
+            'password' => $user['password']
         ]);
     }
     echo '<h1>liste des users</h1>';
@@ -53,8 +63,6 @@ $router->map('GET', '/users', function() {
 
     var_dump($users);
 });
-
-
 
 
 
@@ -103,6 +111,10 @@ $router->map('GET', '/books', function() {
     echo '<h1>Les livres ont été ajoutés à la base de données avec succès !</h1>';
 });
 
+$router->map('GET', '/users/create', function() {
+    echo '<h1>Bienvenue sur la page d\'inscription </h1>';
+});
+
 
 $match = $router->match();
 if (is_array($match) && is_callable($match['target'])) {
@@ -111,6 +123,9 @@ if (is_array($match) && is_callable($match['target'])) {
     // no route was matched
     header($_SERVER["SERVER_PROTOCOL"] . ' 404 Not Found');
 }
+
+
+
 
 
 ?>
